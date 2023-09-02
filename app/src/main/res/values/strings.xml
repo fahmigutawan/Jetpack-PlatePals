@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Hackjam 2023</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiZmFobWlndXRhd2FuIiwiYSI6ImNsbHZpc3RjNzA5YTAzZm85N2xhN3JtZXcifQ.qY4U9J90ri_t5pooxSgHFA</string>
+</resources>
