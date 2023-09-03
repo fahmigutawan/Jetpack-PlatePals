@@ -226,12 +226,15 @@ fun HomeScreen(
                     modifier = Modifier.padding(top = 16.dp),
                     items = viewModel.products,
                     onItemClicked = {
-                        //TODO
+                        navController.navigate("${NavRoutes.MERCHANT_DETAIL.name}/${it.merchant_id}")
                     }
                 )
             }
 
             HomeExploreMakanan(
+                onListClick = {
+                    navController.navigate(NavRoutes.FOOD_AROUND.name)
+                },
                 onMapClick = {
                     mapsPermissions.launchMultiplePermissionRequest()
 
@@ -252,7 +255,7 @@ fun HomeScreen(
                     modifier = Modifier.padding(top = 16.dp),
                     items = viewModel.products,
                     onItemClicked = {
-                        //TODO
+                        navController.navigate("${NavRoutes.MERCHANT_DETAIL.name}/${it.merchant_id}")
                     }
                 )
             }

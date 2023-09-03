@@ -9,5 +9,7 @@ enum class NavRoutes {
     ORDER,
     FORUM,
     ACCOUNT,
-    MERCHANT_MAP
+    MERCHANT_MAP,
+    FOOD_AROUND,
+    MERCHANT_DETAIL
 }

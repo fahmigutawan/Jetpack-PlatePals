@@ -10,9 +10,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.dp
-import com.example.hackjam2023.component.items.product.ProductItem
+import com.example.hackjam2023.component.items.product.ProductCardItem
 import com.example.hackjam2023.model.product.ProductModel
 
 @Composable
@@ -36,7 +35,7 @@ fun HomeRecommendation(
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items.forEach {
-                ProductItem(
+                ProductCardItem(
                     item = it,
                     onItemClick = {
                         onItemClicked(it)

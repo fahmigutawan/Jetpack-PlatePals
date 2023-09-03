@@ -17,7 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.hackjam2023.component.layout.LoadingLayout
+import com.example.hackjam2023.component.navbar.Navbar
 import com.example.hackjam2023.routing.AppNavHost
+import com.example.hackjam2023.routing.NavRoutes
 import com.example.hackjam2023.ui.theme.Hackjam2023Theme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -33,7 +35,6 @@ lateinit var showSnackbarWithAction: (
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -66,12 +67,49 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+            navController.addOnDestinationChangedListener { _, dest, _ ->
+                dest.route?.let { currentRoute ->
+                    mainViewModel.currentRoute.value = currentRoute
+
+                    when (currentRoute) {
+                        NavRoutes.HOME.name -> {
+                            mainViewModel.showBottomBar.value = true
+                        }
+
+                        NavRoutes.ORDER.name -> {
+                            mainViewModel.showBottomBar.value = true
+                        }
+
+                        NavRoutes.FORUM.name -> {
+                            mainViewModel.showBottomBar.value = true
+                        }
+
+                        NavRoutes.ACCOUNT.name -> {
+                            mainViewModel.showBottomBar.value = true
+                        }
+
+                        else -> {
+                            mainViewModel.showBottomBar.value = false
+                        }
+                    }
+                }
+            }
 
             Hackjam2023Theme {
                 Scaffold(
                     snackbarHost = {
                         SnackbarHost(hostState = snackbarHostState)
                     },
+                    bottomBar = {
+                        if (mainViewModel.showBottomBar.value) {
+                            Navbar(
+                                currentRoute = mainViewModel.currentRoute.value,
+                                onItemClicked = { destRoute ->
+                                    navController.navigate(destRoute)
+                                }
+                            )
+                        }
+                    }
                 ) {
                     LoadingLayout() {
                         AppNavHost(

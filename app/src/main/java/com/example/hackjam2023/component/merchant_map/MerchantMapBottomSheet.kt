@@ -33,7 +33,8 @@ import com.example.hackjam2023.model.merchant.MerchantModel
 fun MerchantMapBottomSheet(
     item: MerchantModel,
     place_name: String?,
-    onDismiss: () -> Unit
+    onDismiss: () -> Unit,
+    onKunjungiClick:(String) -> Unit
 ) {
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Surface(modifier = Modifier.fillMaxWidth()) {
@@ -78,7 +79,9 @@ fun MerchantMapBottomSheet(
 
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { /*TODO*/ }
+                    onClick = {
+                        onKunjungiClick(item.merchant_id)
+                    }
                 ) {
                     Text(text = "Kunjungi Toko")
                 }

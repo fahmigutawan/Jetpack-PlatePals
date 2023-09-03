@@ -37,6 +37,7 @@ import com.google.accompanist.permissions.rememberMultiplePermissionsState
 @Composable
 fun HomeExploreMakanan(
     modifier: Modifier = Modifier,
+    onListClick:() -> Unit,
     onMapClick: () -> Unit
 ) {
     val height = 128.dp
@@ -80,7 +81,7 @@ fun HomeExploreMakanan(
 
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Button(
-                            onClick = { /*TODO*/ },
+                            onClick = onListClick,
                             colors = ButtonColor.surfaceButton()
                         ) {
                             Row(

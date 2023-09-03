@@ -182,4 +182,63 @@ class Repository @Inject constructor(
     ) {
         contentType(ContentType.Application.Json)
     }
+
+    fun devGetAllProductByMerchantId(
+        merchant_id:String,
+        onSuccess: (List<ProductModel>) -> Unit,
+        onFailed: (String) -> Unit
+    ){
+        firestore
+            .collection("product")
+            .whereEqualTo("merchant_id", merchant_id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error.message ?: "Terjadi kesalahan saat mendapatkan produk")
+                    return@addSnapshotListener
+                }
+
+                value?.let {
+                    onSuccess(
+                        it.documents.map {
+                            ProductModel(
+                                product_id = it["product_id"] as String,
+                                merchant_id = it["merchant_id"] as String,
+                                thumbnail = it["thumbnail"] as String,
+                                title = it["title"] as String,
+                                price = it["price"] as Long
+                            )
+                        }
+                    )
+                }
+            }
+    }
+
+    fun devGetMerchantByMerchantId(
+        merchant_id: String,
+        onSuccess: (MerchantModel) -> Unit,
+        onFailed: (String) -> Unit
+    ){
+        firestore
+            .collection("merchant")
+            .document(merchant_id)
+            .addSnapshotListener { value, error ->
+                if (error != null) {
+                    onFailed(error.message ?: "Terjadi kesalahan saat mendapatkan produk")
+                    return@addSnapshotListener
+                }
+
+                value?.let {
+                    onSuccess(
+                        MerchantModel(
+                            merchant_id = it["merchant_id"] as String,
+                            thumbnail = it["thumbnail"] as String,
+                            banner = it["banner"] as String,
+                            name = it["name"] as String,
+                            lat = it["lat"] as Double,
+                            long = it["long"] as Double
+                        )
+                    )
+                }
+            }
+    }
 }

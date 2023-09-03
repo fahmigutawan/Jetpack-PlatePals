@@ -13,5 +13,19 @@ enum class NavbarItems(
         "Beranda",
         R.drawable.navbar_home
     ),
-
+    Order(
+        NavRoutes.ORDER.name,
+        "Pesanan",
+        R.drawable.navbar_order
+    ),
+    Forum(
+        NavRoutes.FORUM.name,
+        "Forum",
+        R.drawable.navbar_forum
+    ),
+    Account(
+        NavRoutes.ACCOUNT.name,
+        "Account",
+        R.drawable.navbar_account
+    )
 }

@@ -40,6 +40,7 @@ import com.example.hackjam2023.component.merchant_map.MerchantMapBottomSheet
 import com.example.hackjam2023.databinding.MapLayoutBinding
 import com.example.hackjam2023.databinding.MerchantContainerBinding
 import com.example.hackjam2023.presentation.merchant_map.viewmodel.MerchantMapViewModel
+import com.example.hackjam2023.routing.NavRoutes
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -72,10 +73,17 @@ fun MerchantMapScreen(
     val mapCameraOptions = CameraOptions
         .Builder()
         .center(
-            Point.fromLngLat(
-                viewModel.userLong.value,
-                viewModel.userLat.value
-            )
+            if(viewModel.pickedMerchant.value == null){
+                Point.fromLngLat(
+                    viewModel.userLong.value,
+                    viewModel.userLat.value
+                )
+            }else{
+                Point.fromLngLat(
+                    viewModel.pickedMerchant.value?.long ?: 0.0,
+                    viewModel.pickedMerchant.value?.lat ?: 0.0
+                )
+            }
         )
     val locationProvider = LocationServices.getFusedLocationProviderClient(context)
     val locationRequest = LocationRequest.create().apply {
@@ -111,6 +119,9 @@ fun MerchantMapScreen(
                 onDismiss = {
                     viewModel.pickedMerchant.value = null
                     viewModel.pickedPlaceName.value = null
+                },
+                onKunjungiClick = {merchant_id ->
+                    navController.navigate("${NavRoutes.MERCHANT_DETAIL.name}/$merchant_id")
                 }
             )
         }
@@ -170,18 +181,18 @@ fun MerchantMapScreen(
         .addOnSuccessListener {
             // UNCOMMENT WHEN PRESENTATING
 
-//            viewModel.userLat.value = it.latitude
-//            viewModel.userLong.value = it.longitude
+            viewModel.userLat.value = it.latitude
+            viewModel.userLong.value = it.longitude
 
             map.value?.camera?.flyTo(
                 mapCameraOptions.build()
             )
 
-//            locationProvider.requestLocationUpdates(
-//                locationRequest,
-//                callback,
-//                Looper.getMainLooper()
-//            )
+            locationProvider.requestLocationUpdates(
+                locationRequest,
+                callback,
+                Looper.getMainLooper()
+            )
         }
 
     Box {
@@ -210,6 +221,7 @@ fun MerchantMapScreen(
                         .withCircleColor("#ee4e8b")
                         .withCircleStrokeWidth(2.0)
                         .withCircleStrokeColor("#ffffff")
+
                     circleAnnotationManager.create(circleAnnotationOptions)
                 }
             }
