@@ -13,6 +13,8 @@ import com.example.hackjam2023.presentation.login.screen.LoginScreen
 import com.example.hackjam2023.presentation.merchant_detail.screen.MerchantDetailScreen
 import com.example.hackjam2023.presentation.merchant_map.screen.MerchantMapScreen
 import com.example.hackjam2023.presentation.onboarding.screen.OnboardingScreen
+import com.example.hackjam2023.presentation.order.screen.OrderScreen
+import com.example.hackjam2023.presentation.payment.screen.PaymentScreen
 import com.example.hackjam2023.presentation.register.screen.RegisterScreen
 import com.example.hackjam2023.presentation.splash.screen.SplashScreen
 
@@ -47,7 +49,11 @@ fun AppNavHost(
         }
 
         composable(route = NavRoutes.ORDER.name){
+            OrderScreen(navController = navController)
+        }
 
+        composable(route = NavRoutes.PAYMENT.name){
+            PaymentScreen(navController = navController)
         }
 
         composable(route = NavRoutes.FORUM.name){

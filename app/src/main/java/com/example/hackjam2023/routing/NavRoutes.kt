@@ -11,5 +11,6 @@ enum class NavRoutes {
     ACCOUNT,
     MERCHANT_MAP,
     FOOD_AROUND,
-    MERCHANT_DETAIL
+    MERCHANT_DETAIL,
+    PAYMENT
 }

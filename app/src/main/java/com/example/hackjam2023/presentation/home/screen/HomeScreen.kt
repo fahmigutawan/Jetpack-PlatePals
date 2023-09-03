@@ -141,8 +141,10 @@ fun HomeScreen(
                 Row(
                     modifier = Modifier
                         .padding(16.dp)
-                        .padding(bottom = 32.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .padding(bottom = 32.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -156,7 +158,7 @@ fun HomeScreen(
                         )
 
                         Text(
-                            text = "Fahmi Noordin (NOT API CALL)",
+                            text = "Fahmi Noordin",
                             color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
